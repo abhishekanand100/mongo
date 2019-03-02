@@ -62,7 +62,7 @@ class ClientPreferenceController @Inject()(cc: MessagesControllerComponents, cli
         )
         val searchResults = clientPreferenceService.find(searchQuery)
         val result = Json.toJson(searchResults).toString()
-        Redirect(routes.ClientPreferenceController.formSearch()).flashing("info" -> s"Saved successfully with id $result")
+        Ok(result)
       }
 
       val formValidationResult: Form[ClientPreferenceSearchQuery] = clientPreferenceSearchForm.bindFromRequest
