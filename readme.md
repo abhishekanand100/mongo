@@ -1,5 +1,6 @@
 #  CRUD
 
+Using Scala, Play Web Framwork, Google Guice DI and MongoDB
 ### Installing
 
 Git clone
@@ -7,6 +8,7 @@ Git clone
 To run locally `sbt -jvm-debug 5005`
 
 Environment Variable `$CONNNECTION`
+`localhost:9000`
 
 
 
