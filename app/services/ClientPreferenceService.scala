@@ -50,7 +50,7 @@ class ClientPreferenceService @Inject()(clientPreferenceDAO: ClientPreferencePer
   def deleteByQuery(clientPreferenceSearchQuery: ClientPreferenceSearchQuery): String = {
     val deleteResult = clientPreferenceDAO.delete(clientPreferenceSearchQuery)
     if(deleteResult.wasAcknowledged()){
-      "Deleted"
+      s"Successfully Deleted ${deleteResult.getDeletedCount} items"
     } else {
       throw ExecutionException(s"Could not delete document for ")
     }

@@ -87,7 +87,7 @@ class ClientPreferenceController @Inject()(cc: MessagesControllerComponents, cli
         )
         val searchResults = clientPreferenceService.deleteByQuery(searchQuery)
         val result = Json.toJson(searchResults).toString()
-        Redirect(routes.ClientPreferenceController.formDelete()).flashing("info" -> s"Saved successfully with id $result")
+        Ok(result)
       }
 
       val searchQueryError: Form[ClientPreferenceSearchQuery] => Result
