@@ -6,7 +6,7 @@ import javax.inject.Inject
 import org.bson.Document
 
 @Singleton
-class DatabaseProvider @Inject()(mongoDatabase: MongoDatabase) {
+class PersistenceLayer @Inject()(mongoDatabase: MongoDatabase) {
 
   def getCollection(collectionName: String): MongoCollection[Document] = {
     mongoDatabase.getCollection(collectionName)

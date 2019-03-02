@@ -13,7 +13,7 @@ import org.joda.time.DateTime
 
 
 @Singleton
-class ClientPreferenceDAO @Inject()(databaseProvider: DatabaseProvider) {
+class ClientPreferencePersistence @Inject()(persistenceLayer: PersistenceLayer) {
   private val collectionName = ClientPreference.collectionName
 
   def findForFilter(clientPreferenceSearchQuery: ClientPreferenceSearchQuery): MongoCursor[Document] = {
@@ -44,7 +44,7 @@ class ClientPreferenceDAO @Inject()(databaseProvider: DatabaseProvider) {
   }
 
   def save(clientPreference: ClientPreference): ClientPreference = {
-    val collection = databaseProvider.getCollection(collectionName)
+    val collection = persistenceLayer.getCollection(collectionName)
     val document = new Document()
     document.put("clientId", new Integer(clientPreference.clientId))
     document.put("name", clientPreference.name)
@@ -62,40 +62,9 @@ class ClientPreferenceDAO @Inject()(databaseProvider: DatabaseProvider) {
   }
 
   private def getCollection: MongoCollection[Document] = {
-    databaseProvider.getCollection(collectionName)
+    persistenceLayer.getCollection(collectionName)
   }
 
 }
 
 
-object test {
-
-  def main(args: Array[String]): Unit = {
-    val uri: String = "mongodb+srv://admin:admin1@mongodbabhishek-wwlre.mongodb.net/admin?retryWrites=true"
-
-    val newUri = "mongodb://admin1:admin1@abhishek-shard-00-00-wwlre.mongodb.net:27017,abhishek-shard-00-01-wwlre.mongodb.net:27017,abhishek-shard-00-02-wwlre.mongodb.net:27017/test?ssl=true&replicaSet=abhishek-shard-0&authSource=admin&retryWrites=true"
-    val mongoClient = new MongoClientURI(newUri)
-    val mongo = new MongoClient(mongoClient)
-
-
-    val abc = mongo.getDatabase("abhishek")
-    val deff = abc.listCollections()
-
-    val collection = abc.getCollection("clientPreference")
-
-
-    val clientPreference = ClientPreference(33, "firstone", CarouselAd, new DateTime(), Weekly, isActive = true)
-
-
-    val doc = new Document()
-    doc.put("clientId", clientPreference.clientId)
-    doc.put("name", clientPreference.name)
-    doc.put("templateId", clientPreference.templateId.label)
-    doc.put("startDate", new Date())
-    doc.put("repeat", clientPreference.repeat.label)
-    doc.put("isActive", clientPreference.isActive)
-    collection.insertOne(doc)
-  }
-
-
-}

@@ -1,6 +1,6 @@
 import com.google.inject.AbstractModule
 import com.mongodb.{MongoClient, MongoClientURI}
-import dao.{ClientPreferenceDAO, DatabaseProvider}
+import dao.{ClientPreferencePersistence, PersistenceLayer}
 import services.ClientPreferenceService
 
 
@@ -12,11 +12,11 @@ class Module extends AbstractModule {
     val db = "abhishek"
     val mongoDatabase = new MongoClient(new MongoClientURI(uri)).getDatabase(db)
 
-    val databaseProvider = new DatabaseProvider(mongoDatabase)
+    val databaseProvider = new PersistenceLayer(mongoDatabase)
 //    CodecRegistries.fromRegistries()
-    bind(classOf[DatabaseProvider]) toInstance databaseProvider
+    bind(classOf[PersistenceLayer]) toInstance databaseProvider
     bind(classOf[ClientPreferenceService]).asEagerSingleton()
-    bind(classOf[ClientPreferenceDAO]).asEagerSingleton()
+    bind(classOf[ClientPreferencePersistence]).asEagerSingleton()
 
   }
 

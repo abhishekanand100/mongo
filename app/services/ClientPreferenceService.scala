@@ -1,7 +1,7 @@
 package services
 
 import com.google.inject.Inject
-import dao.ClientPreferenceDAO
+import dao.ClientPreferencePersistence
 import exceptions.{ExecutionException, NoDocumentFoundException}
 import javax.inject.Singleton
 import models.{ClientPreference, ClientPreferenceSearchQuery, Frequency, Template}
@@ -13,7 +13,7 @@ import scala.collection.mutable.ListBuffer
 import scala.concurrent.Future
 
 @Singleton
-class ClientPreferenceService @Inject()(clientPreferenceDAO: ClientPreferenceDAO) {
+class ClientPreferenceService @Inject()(clientPreferenceDAO: ClientPreferencePersistence) {
 
   def findById(objectId: String): ClientPreference = {
     val cursor = clientPreferenceDAO.findForFilter(ClientPreferenceSearchQuery(id = Some(objectId)))
