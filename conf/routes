@@ -1,0 +1,17 @@
+
+## Methods for curl
+GET     /                                   controllers.APIController.home
+POST    /create                             controllers.APIController.save
+POST    /find                               controllers.APIController.find
+GET    /deleteById/:id                      controllers.APIController.delete(id: String)
+
+ ## Methods for form
+
+GET     /formSearch                       controllers.ClientPreferenceController.formSearch
+GET     /formAdd                          controllers.ClientPreferenceController.formAdd
+GET     /formDelete                       controllers.ClientPreferenceController.formDelete
+
+
+GET     /save                          controllers.ClientPreferenceController.save
+GET     /search                       controllers.ClientPreferenceController.search
+GET     /delete                       controllers.ClientPreferenceController.delete
