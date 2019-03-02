@@ -10,30 +10,23 @@ Environment Variable `$CONNNECTION`
 
 
 
-## Create
-####Via API
+## Create via API
 
 POST `/create`
 
 with request body
 `{"name":"preference", "clientId":123, "templateId":"Carousel Ad", "repeat":"daily"}`
 
-####Via Form
-Open url `/formAdd`
 
-### Delete
-###Via API
+### Delete via API
+
 GET `/deleteById/5c79f8337db80e0e72102908`
 
 
 
 
-####Via Form
-Open url `/formDelete`
 
-
-### Search
-####Via API
+### Search via API
 POST Request `http://localhost:9000/find`
 
 with request body
@@ -41,9 +34,14 @@ with request body
 `{"id":"jkqbd22331"}`
 
 
-####Via Form
+## Create via Form
+
+Open url `/formAdd`
+## Delete via Form
+
+GET `/deleteById/5c79f8337db80e0e72102908`
+
+
+## Search via Form
 Open url `/formSearch`
-
-
-
 
