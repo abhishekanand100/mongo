@@ -1,7 +1,7 @@
 
 @(form: Form[ClientPreferenceSearchQuery], postUrl: Call)(implicit request: MessagesRequestHeader)
 
-@main("Hello World"){
+@main("Client Preference Search"){
     <h1>Client Preference Search</h1>
 
     @* Flash shows updates to a page *@
@@ -19,7 +19,7 @@
     }
 
     @* “'id” in these elements is the css `id` field that will be shown *@
-    @helper.form(postUrl, 'id -> "blog_edit_form") {
+    @helper.form(postUrl) {
         @helper.CSRF.formField
 
         @helper.inputText(form("name"), 'id -> "title", 'size -> 60)
@@ -43,7 +43,7 @@
         )
 
 
-        <button>Save</button>
+        <button>Search</button>
     }
 
 }

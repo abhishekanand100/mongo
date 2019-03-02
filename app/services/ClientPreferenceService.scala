@@ -47,6 +47,15 @@ class ClientPreferenceService @Inject()(clientPreferenceDAO: ClientPreferencePer
     }
   }
 
+  def deleteByQuery(clientPreferenceSearchQuery: ClientPreferenceSearchQuery): String = {
+    val deleteResult = clientPreferenceDAO.delete(clientPreferenceSearchQuery)
+    if(deleteResult.wasAcknowledged()){
+      "Deleted"
+    } else {
+      throw ExecutionException(s"Could not delete document for ")
+    }
+  }
+
 
   def save(clientPreference: ClientPreference): ClientPreference = {
     //todo add logic for duplicate

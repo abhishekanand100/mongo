@@ -46,18 +46,18 @@ class ClientPreferenceController @Inject()(cc: MessagesControllerComponents, cli
     Ok(views.html.clientPreferenceSearch(clientPreferenceSearchForm, routes.ClientPreferenceController.search()))
   }
 
+  def formDelete = Action { implicit request: MessagesRequest[AnyContent] =>
+    Ok(views.html.clientPreferenceDelete(clientPreferenceSearchForm, routes.ClientPreferenceController.delete()))
+  }
+
   def search =  Action {
     implicit request: MessagesRequest[AnyContent] =>
       val errorFunction = { formWithErrors: Form[ClientPreferenceSearchQuery] =>
-        logger.debug("CAME INTO errorFunction")
-        // this is the bad case, where the form had validation errors.
         // show the user the form again, with the errors highlighted.
         BadRequest(views.html.clientPreferenceSearch(formWithErrors, routes.ClientPreferenceController.formSearch()))
       }
 
       val successFunction = { data: ClientPreferenceSearchQuery =>
-        logger.debug("CAME INTO successFunction")
-        // this is the SUCCESS case, where the form was successfully parsed as a BlogPost
         val searchQuery = ClientPreferenceSearchQuery(
           data.clientId,
           data.name,
@@ -77,19 +77,44 @@ class ClientPreferenceController @Inject()(cc: MessagesControllerComponents, cli
       )
   }
 
+  def searchQueryError: Form[ClientPreferenceSearchQuery] => Result
+  = { formWithErrors: Form[ClientPreferenceSearchQuery] =>
+    // show the user the form again, with the errors highlighted.
+    BadRequest(views.html.clientPreferenceSearch(formWithErrors, routes.ClientPreferenceController.formSearch()))
+  }
+
+
+  def delete =  Action {
+    implicit request: MessagesRequest[AnyContent] =>
+      val deleteInternal = { data: ClientPreferenceSearchQuery =>
+        val searchQuery = ClientPreferenceSearchQuery(
+          data.clientId,
+          data.name,
+          data.id,
+          data.templateId,
+          data.repeat
+        )
+        val searchResults = clientPreferenceService.deleteByQuery(searchQuery)
+        val result = Json.toJson(searchResults).toString()
+        Redirect(routes.ClientPreferenceController.formDelete()).flashing("info" -> s"Saved successfully with id $result")
+      }
+
+      val formValidationResult: Form[ClientPreferenceSearchQuery] = clientPreferenceSearchForm.bindFromRequest
+      formValidationResult.fold(
+        searchQueryError,
+        deleteInternal
+      )
+  }
+
 
   def save = Action {
     implicit request: MessagesRequest[AnyContent] =>
-      val errorFunction = { formWithErrors: Form[ClientPreferenceDTO] =>
-        logger.debug("CAME INTO errorFunction")
-        // this is the bad case, where the form had validation errors.
+      val saveError = { formWithErrors: Form[ClientPreferenceDTO] =>
         // show the user the form again, with the errors highlighted.
         BadRequest(views.html.clientPreference(formWithErrors, routes.ClientPreferenceController.formAdd()))
       }
 
-      val successFunction = { data: ClientPreferenceDTO =>
-        logger.debug("CAME INTO successFunction")
-        // this is the SUCCESS case, where the form was successfully parsed as a BlogPost
+      val saveInternal = { data: ClientPreferenceDTO =>
         val preferenceDTO = ClientPreferenceDTO(
           data.name,
           data.templateId,
@@ -105,8 +130,8 @@ class ClientPreferenceController @Inject()(cc: MessagesControllerComponents, cli
 
       val formValidationResult: Form[ClientPreferenceDTO] = clientDTOForm.bindFromRequest
       formValidationResult.fold(
-        errorFunction,
-        successFunction
+        saveError,
+        saveInternal
       )
   }
 }

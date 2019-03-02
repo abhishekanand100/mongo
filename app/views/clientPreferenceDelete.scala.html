@@ -1,7 +1,7 @@
 
-@(form: Form[ClientPreferenceDTO], postUrl: Call)(implicit request: MessagesRequestHeader)
+@(form: Form[ClientPreferenceSearchQuery], postUrl: Call)(implicit request: MessagesRequestHeader)
 
-@main("Client Preference Save"){
+@main("Client Preference Delete"){
     <h1>Client Preference</h1>
 
     @* Flash shows updates to a page *@
@@ -22,8 +22,9 @@
     @helper.form(postUrl) {
         @helper.CSRF.formField
 
-        @helper.inputText(form("name"), 'id -> "title", 'size -> 60)
-        @helper.inputText(form("clientId"), 'size -> 60)
+        @helper.inputText(form("id"))
+        @helper.inputText(form("name"))
+        @helper.inputText(form("clientId"))
         @helper.select(
             field = form("repeat"),
             options = Seq(
@@ -34,15 +35,15 @@
         )
         @helper.select(
             field = form("templateId"),
-               options = Seq(
-                    "Carousel Ad" -> "Carousel Ad",
-           "Single Image Ad" -> "Single Image Ad"
-           ),
-          '_default -> "Choose One"
-         )
+            options = Seq(
+                "Carousel Ad" -> "Carousel Ad",
+                "Single Image Ad" -> "Single Image Ad"
+            ),
+            '_default -> "Choose One"
+        )
 
 
-        <button>Save</button>
+        <button>Delete</button>
     }
 
 }
