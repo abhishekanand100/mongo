@@ -22,27 +22,7 @@
     @helper.form(postUrl) {
         @helper.CSRF.formField
 
-        @helper.inputText(form("name"), 'id -> "title", 'size -> 60)
-        @helper.inputText(form("id"), 'id -> "title", 'size -> 60)
-        @helper.inputText(form("clientId"), 'size -> 60)
-        @helper.select(
-            field = form("repeat"),
-            options = Seq(
-                "Weekly" -> "Weekly",
-                "Daily" -> "Daily"
-            ),
-            '_default -> "Choose One"
-        )
-        @helper.select(
-            field = form("templateId"),
-            options = Seq(
-                "Carousel Ad" -> "Carousel Ad",
-                "Single Image Ad" -> "Single Image Ad"
-            ),
-            '_default -> "Choose One"
-        )
-
-
+        @helper.inputText(form("id"))
         <button>Search</button>
     }
 

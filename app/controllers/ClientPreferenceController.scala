@@ -29,13 +29,8 @@ class ClientPreferenceController @Inject()(cc: MessagesControllerComponents, cli
   val clientPreferenceSearchForm: Form[ClientPreferenceSearchQuery] = Form (
     mapping(
       "id" -> text,
-      "clientId" -> number,
-      "name" -> text,
-      "repeat" -> text,
-      "templateId" -> text,
-    )((id, clientId, name, repeat, templateId) => ClientPreferenceSearchQuery(Some(clientId), Some(name), Some(id), Some(templateId), Some(repeat)))
-    ((clientPreferenceSearchQuery: ClientPreferenceSearchQuery) => Some(clientPreferenceSearchQuery.id.getOrElse(""), clientPreferenceSearchQuery.clientId.getOrElse(0),
-      clientPreferenceSearchQuery.name.getOrElse(""), clientPreferenceSearchQuery.repeat.getOrElse(""), clientPreferenceSearchQuery.templateId.getOrElse("")))
+    )((id) => ClientPreferenceSearchQuery(None, None, Some(id), None, None))
+    ((clientPreferenceSearchQuery: ClientPreferenceSearchQuery) => Some(clientPreferenceSearchQuery.id.getOrElse("")))
   )
 
   def formAdd = Action { implicit request: MessagesRequest[AnyContent] =>

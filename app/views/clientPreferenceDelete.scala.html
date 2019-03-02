@@ -23,24 +23,6 @@
         @helper.CSRF.formField
 
         @helper.inputText(form("id"))
-        @helper.inputText(form("name"))
-        @helper.inputText(form("clientId"))
-        @helper.select(
-            field = form("repeat"),
-            options = Seq(
-                "Weekly" -> "Weekly",
-                "Daily" -> "Daily"
-            ),
-            '_default -> "Choose One"
-        )
-        @helper.select(
-            field = form("templateId"),
-            options = Seq(
-                "Carousel Ad" -> "Carousel Ad",
-                "Single Image Ad" -> "Single Image Ad"
-            ),
-            '_default -> "Choose One"
-        )
 
 
         <button>Delete</button>
