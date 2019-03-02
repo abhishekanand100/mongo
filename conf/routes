@@ -3,7 +3,7 @@
 GET     /                                   controllers.APIController.home
 POST    /create                             controllers.APIController.save
 POST    /find                               controllers.APIController.find
-GET    /deleteById                               controllers.APIController.delete(id: String)
+GET    /deleteById/:id                      controllers.APIController.delete(id: String)
 
  ## Methods for form
 

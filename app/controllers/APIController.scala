@@ -28,7 +28,7 @@ class APIController @Inject()(val controllerComponents: ControllerComponents, cl
   }
 
   def home = Action {
-    Ok(views.html.clientPreference)
+    Ok("App Running successfully")
   }
 
   def save: Action[JsValue] = Action.async(parse.json) {

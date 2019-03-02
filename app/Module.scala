@@ -9,7 +9,7 @@ class Module extends AbstractModule {
 
   override def configure(): Unit = {
 
-    val uri = ConfigFactory.load.getString("connnection")
+    val uri = ConfigFactory.load.getString("connection")
     val db = "abhishek"
     val mongoDatabase = new MongoClient(new MongoClientURI(uri)).getDatabase(db)
 

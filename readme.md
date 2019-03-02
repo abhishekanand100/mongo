@@ -1,17 +1,32 @@
-*Scala Play App using Mongodb
+#  CRUD
 
-* To run locally `sbt -jvm-debug 5005`
+### Installing
+
+Git clone
+
+To run locally `sbt -jvm-debug 5005`
 
 Environment Variable `$CONNNECTION`
 
-API Usage
+## Create
 
-1 Save new preference
+POST `/create`
+
+with request body
+`{"name":"preference", "clientId":123, "templateId":"Carousel Ad", "repeat":"daily"}`
+
+### Delete
+
+GET `/deleteById/5c79f8337db80e0e72102908`
+
+### Search
+
+POST Request `http://localhost:9000/find`
+
+with request body
+
+`{"id":"jkqbd22331"}`
 
 
 
-2 Search preference
-
-
-3 Delete Preference
 

@@ -77,11 +77,7 @@ class ClientPreferenceController @Inject()(cc: MessagesControllerComponents, cli
       )
   }
 
-  def searchQueryError: Form[ClientPreferenceSearchQuery] => Result
-  = { formWithErrors: Form[ClientPreferenceSearchQuery] =>
-    // show the user the form again, with the errors highlighted.
-    BadRequest(views.html.clientPreferenceSearch(formWithErrors, routes.ClientPreferenceController.formSearch()))
-  }
+
 
 
   def delete =  Action {
@@ -99,11 +95,19 @@ class ClientPreferenceController @Inject()(cc: MessagesControllerComponents, cli
         Redirect(routes.ClientPreferenceController.formDelete()).flashing("info" -> s"Saved successfully with id $result")
       }
 
+      val searchQueryError: Form[ClientPreferenceSearchQuery] => Result
+      = { formWithErrors: Form[ClientPreferenceSearchQuery] =>
+        // show the user the form again, with the errors highlighted.
+        BadRequest(views.html.clientPreferenceSearch(formWithErrors, routes.ClientPreferenceController.formSearch()))
+      }
+
       val formValidationResult: Form[ClientPreferenceSearchQuery] = clientPreferenceSearchForm.bindFromRequest
       formValidationResult.fold(
         searchQueryError,
         deleteInternal
       )
+
+
   }
 
 
