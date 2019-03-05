@@ -8,7 +8,8 @@ Git clone
 To run locally `sbt -jvm-debug 5005`
 
 Environment Variable `$CONNNECTION`
-`localhost:9000`
+
+Runs on `localhost:9000`
 
 
 
