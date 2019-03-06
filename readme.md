@@ -5,6 +5,11 @@ Using Scala, Play Web Framwork, Google Guice DI and MongoDB
 
 Git clone
 
+Dependencies `sbt`
+
+https://www.scala-sbt.org/1.x/docs/Installing-sbt-on-Mac.html
+
+
 To run locally `sbt -jvm-debug 5005`
 
 Environment Variable `$CONNNECTION`
